@@ -1,0 +1,569 @@
+<title>Staff Daily Logs</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #eeece3;
+    --surface: #faf9f4;
+    --surface-raised: #ffffff;
+    --ink: #182238;
+    --ink-secondary: #4b5568;
+    --muted: #83889a;
+    --line: rgba(24,34,56,0.13);
+    --line-strong: rgba(24,34,56,0.24);
+    --navy: #182238;
+    --navy-deep: #0f1626;
+    --accent: #a9781f;
+    --accent-ink: #4a3608;
+    --accent-soft: #f0e2bd;
+    --accent-soft-line: rgba(169,120,31,0.35);
+
+    --good: #0ca30c;
+    --warning: #fab219;
+    --warning-ink: #6b4700;
+    --critical: #d03b3b;
+
+    --dept-1: #2a78d6; /* High School */
+    --dept-2: #eb6834; /* Middle School */
+    --dept-3: #1baf7a; /* High Elementary */
+    --dept-4: #d69200; /* Lower Elementary */
+    --dept-5: #d1608c; /* Pre-K */
+    --dept-6: #8a63c9; /* Administration */
+
+    --shadow-card: 0 1px 2px rgba(15,22,38,0.06), 0 6px 20px -8px rgba(15,22,38,0.16);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #0f1420;
+      --surface: #161d2d;
+      --surface-raised: #1c2437;
+      --ink: #f1efe6;
+      --ink-secondary: #c4c9d6;
+      --muted: #8891a3;
+      --line: rgba(255,255,255,0.11);
+      --line-strong: rgba(255,255,255,0.2);
+      --navy: #0b1120;
+      --navy-deep: #060a14;
+      --accent: #e0b563;
+      --accent-ink: #241a04;
+      --accent-soft: rgba(224,181,99,0.16);
+      --accent-soft-line: rgba(224,181,99,0.4);
+
+      --good: #2fc42f;
+      --warning: #fab219;
+      --warning-ink: #ffe6ad;
+      --critical: #ef6a6a;
+
+      --dept-1: #3987e5;
+      --dept-2: #e07440;
+      --dept-3: #26bd8a;
+      --dept-4: #e2a325;
+      --dept-5: #e07ba1;
+      --dept-6: #a586e0;
+
+      --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px -10px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #0f1420;
+    --surface: #161d2d;
+    --surface-raised: #1c2437;
+    --ink: #f1efe6;
+    --ink-secondary: #c4c9d6;
+    --muted: #8891a3;
+    --line: rgba(255,255,255,0.11);
+    --line-strong: rgba(255,255,255,0.2);
+    --navy: #0b1120;
+    --navy-deep: #060a14;
+    --accent: #e0b563;
+    --accent-ink: #241a04;
+    --accent-soft: rgba(224,181,99,0.16);
+    --accent-soft-line: rgba(224,181,99,0.4);
+
+    --good: #2fc42f;
+    --warning: #fab219;
+    --warning-ink: #ffe6ad;
+    --critical: #ef6a6a;
+
+    --dept-1: #3987e5;
+    --dept-2: #e07440;
+    --dept-3: #26bd8a;
+    --dept-4: #e2a325;
+    --dept-5: #e07ba1;
+    --dept-6: #a586e0;
+
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px -10px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-soft); }
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; text-wrap: balance; margin: 0; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px 80px; }
+
+  .masthead {
+    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #f1efe6;
+    padding: 40px 28px 46px;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(90deg, rgba(224,181,99,0.05) 0 1px, transparent 1px 84px);
+    pointer-events: none;
+  }
+  .masthead-inner { max-width: 1180px; margin: 0 auto; position: relative; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #e0b563; display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: #e0b563; }
+  .masthead h1 { font-size: clamp(34px, 4.6vw, 52px); font-weight: 600; color: #fbfaf6; line-height: 1.04; }
+  .masthead p.lede { margin: 16px 0 0; max-width: 620px; font-size: 15.5px; line-height: 1.6; color: #b9bfd1; }
+  .masthead-meta {
+    margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 28px;
+    font-family: "IBM Plex Mono", monospace; font-size: 12px; color: #8891a3;
+  }
+  .masthead-meta b { color: #e0b563; font-weight: 500; }
+
+  .privacy-tag {
+    margin-top: 20px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    color: #cfe0cf;
+    background: rgba(12,163,12,0.14);
+    border: 1px solid rgba(12,163,12,0.35);
+    padding: 6px 12px;
+    border-radius: 100px;
+  }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    margin-top: -34px; position: relative; z-index: 2;
+  }
+  .stat-tile {
+    background: var(--surface-raised); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px 20px; box-shadow: var(--shadow-card);
+  }
+  .stat-tile .label { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+  .stat-tile .value {
+    font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums;
+    font-size: 30px; font-weight: 600; color: var(--ink); margin-top: 8px; line-height: 1;
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .stat-tile .value .unit { font-size: 14px; color: var(--muted); font-weight: 500; }
+  .stat-tile .sub { margin-top: 6px; font-size: 12.5px; color: var(--ink-secondary); }
+  .stat-tile.accent { border-color: var(--accent-soft-line); background: linear-gradient(180deg, var(--accent-soft), var(--surface-raised) 65%); }
+
+  section.block { margin-top: 44px; }
+  .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .block-head h2 { font-size: 21px; font-weight: 600; color: var(--ink); }
+  .block-head .block-note { font-size: 12.5px; color: var(--muted); font-family: "IBM Plex Mono", monospace; }
+  .block-sub { font-size: 13px; color: var(--ink-secondary); margin: -10px 0 16px; max-width: 680px; line-height: 1.55; }
+
+  .chart-card {
+    background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px;
+    padding: 20px 22px 18px; box-shadow: var(--shadow-card);
+  }
+  .chart-card h3 { font-size: 14.5px; font-weight: 600; color: var(--ink); font-family: "Public Sans", sans-serif; }
+  .chart-card .chart-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .chart-body { margin-top: 14px; }
+
+  .charts-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: start; }
+
+  .trend-svg { width: 100%; height: auto; display: block; }
+  .trend-axis-label { font-family: "IBM Plex Mono", monospace; font-size: 10px; fill: var(--muted); }
+  .trend-point { fill: var(--accent); }
+  .trend-line { fill: none; stroke: var(--accent); stroke-width: 2; }
+  .trend-area { fill: var(--accent); opacity: 0.12; }
+  .trend-grid { stroke: var(--line); stroke-width: 1; }
+  .trend-value-label { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; font-weight: 600; fill: var(--ink-secondary); }
+
+  .dept-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+  .dept-row .dept-label { width: 128px; flex-shrink: 0; font-size: 12.5px; color: var(--ink-secondary); font-weight: 500; }
+  .dept-track { flex: 1; height: 20px; background: var(--paper); border-radius: 5px; overflow: hidden; }
+  .dept-fill { height: 100%; border-radius: 5px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; }
+  .dept-fill span { font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.25); }
+
+  .dow-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .dow-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .dow-bar-wrap { width: 100%; height: 90px; display: flex; align-items: flex-end; background: var(--paper); border-radius: 6px; padding: 3px; }
+  .dow-bar { width: 100%; border-radius: 4px; background: var(--accent); transition: height .3s; }
+  .dow-n { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .dow-label { font-size: 11px; color: var(--muted); font-family: "IBM Plex Mono", monospace; }
+
+  .insight-list { display: flex; flex-direction: column; gap: 4px; }
+  .insight-item { display: flex; align-items: flex-start; gap: 16px; padding: 14px 4px; border-bottom: 1px solid var(--line); }
+  .insight-item:last-child { border-bottom: none; }
+  .insight-stat {
+    font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600; color: var(--accent);
+    width: 76px; flex-shrink: 0; text-align: right; line-height: 1.3; padding-top: 1px;
+  }
+  .insight-body { font-size: 13.5px; color: var(--ink-secondary); line-height: 1.6; }
+  .insight-body strong { color: var(--ink); font-weight: 600; }
+
+  .donut-wrap { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .donut-ring { width: 150px; height: 150px; border-radius: 50%; flex-shrink: 0; position: relative; }
+  .donut-center { position: absolute; inset: 22px; border-radius: 50%; background: var(--surface-raised); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-center .n { font-family: "IBM Plex Mono", monospace; font-size: 19px; font-weight: 700; color: var(--ink); }
+  .donut-center .lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+  .donut-legend { display: flex; flex-direction: column; gap: 7px; }
+  .donut-legend-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-secondary); }
+  .donut-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .donut-legend-row b { color: var(--ink); font-family: "IBM Plex Mono", monospace; margin-left: auto; padding-left: 12px; }
+
+  .gauge-card-body { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .gauge-body { flex: 1; min-width: 220px; font-size: 13px; color: var(--ink-secondary); line-height: 1.6; }
+  .gauge-body strong { color: var(--ink); }
+
+  .pictogram-wrap { flex-shrink: 0; }
+  .pictogram-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; width: 190px; }
+  .pictogram-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--good); }
+  .pictogram-dot.flagged { background: var(--line-strong); }
+  .pictogram-caption { margin-top: 10px; text-align: center; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); }
+  .pictogram-caption b { color: var(--good); }
+
+  .data-note {
+    margin-top: 14px; padding: 12px 14px; border-radius: 8px; background: var(--surface);
+    border: 1px solid var(--line); font-size: 12.5px; color: var(--ink-secondary); line-height: 1.55;
+  }
+
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line);
+    font-size: 12px; color: var(--muted); font-family: "IBM Plex Mono", monospace;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+
+  @media (max-width: 880px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .charts-grid { grid-template-columns: 1fr; }
+    .dow-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+</style>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="eyebrow">Riada American School &middot; Internal Registry</div>
+    <h1>Staff Daily Logs</h1>
+    <p class="lede">Check-in patterns from the two fingerprint gates — punctuality, department comparisons, and the weekly rhythm — to support staffing and policy decisions without paging through individual records.</p>
+    <div class="masthead-meta">
+      <span><b>6,207</b> staff-day records on file</span>
+      <span>Sourced from RAS Hub Staff Attendance (ZKTeco gates)</span>
+      <span>Range <b>15 Sep – 5 Nov 2026</b></span>
+      <span>Updated <b>6 November 2026</b></span>
+    </div>
+    <div class="privacy-tag">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+      Aggregate only — no staff names appear on this page
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat-tile accent">
+      <div class="label">Staff-Days Logged</div>
+      <div class="value">6,207</div>
+      <div class="sub">37 school days, 15 Sep – 5 Nov</div>
+    </div>
+    <div class="stat-tile">
+      <div class="label">On-Time Rate</div>
+      <div class="value">74.4<span class="unit">%</span></div>
+      <div class="sub">Sun–Thu, personal exceptions applied</div>
+    </div>
+    <div class="stat-tile">
+      <div class="label">Unique Staff Tracked</div>
+      <div class="value">177</div>
+      <div class="sub">Teachers, workers & administrators</div>
+    </div>
+    <div class="stat-tile">
+      <div class="label">Confirmed Absences</div>
+      <div class="value">62</div>
+      <div class="sub">69 additional days marked excused</div>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Key insights</h2>
+      <span class="block-note">Analysis as of 6 Nov 2026</span>
+    </div>
+    <div class="block-sub">Patterns worth a second look, drawn from the numbers below — not a substitute for individual records, but a starting point for staffing and policy decisions.</div>
+    <div class="chart-card">
+      <div class="insight-list">
+        <div class="insight-item">
+          <div class="insight-stat">10.9%</div>
+          <div class="insight-body"><strong>Administration is the most consistently on-time department</strong> — just 10.9% late, the benchmark every other department is furthest from.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">50.1%</div>
+          <div class="insight-body"><strong>High School stands out in the other direction.</strong> Its check-ins run late 50.1% of the time — roughly double every other department — worth a closer look at that team's schedule, carpool timing, or traffic pattern specifically.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">25 of 177</div>
+          <div class="insight-body"><strong>A clean record for about 1 in 7 staff.</strong> 25 of 177 tracked staff were never late once in this entire 7-week window.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">38%</div>
+          <div class="insight-body"><strong>Lateness is concentrated, not evenly spread.</strong> The 10 staff with the most late minutes account for 38% of all cumulative lateness recorded — most staff are rarely or never late.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-stat">22–31%</div>
+          <div class="insight-body"><strong>On-time performance holds steady week to week.</strong> The late rate has stayed in a fairly narrow band over 8 weeks, with no runaway trend in either direction.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Weekly trend</h2>
+      <span class="block-note">8 weeks &middot; 15 Sep – 5 Nov</span>
+    </div>
+    <div class="chart-card">
+      <h3>Late rate by week</h3>
+      <div class="chart-sub">Share of check-ins counted as late each week (Sun–Thu, department default plus any approved personal exception)</div>
+      <div class="chart-body" id="trendChart"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>On-time rate</h2>
+      <span class="block-note">Out of all logged check-ins</span>
+    </div>
+    <div class="chart-card">
+      <div class="gauge-card-body">
+        <div class="pictogram-wrap" id="onTimeGauge"></div>
+        <div class="gauge-body">
+          <strong>74.4% of check-ins happen on time</strong> (Sun–Thu, 7:40 AM department default — 8:30 AM for Pre-K — with each staff member's approved personal exception applied where one is on file). The remaining 25.6% run late by an average of 29.6 minutes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Load &amp; lateness by department</h2>
+      <span class="block-note">6 departments</span>
+    </div>
+    <div class="block-sub">High School's late rate is the clear outlier — well above every other department, which otherwise cluster between 11% and 36%.</div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Late rate by department</h3>
+        <div class="chart-sub">Share of that department's check-ins counted as late</div>
+        <div class="chart-body" id="deptChart"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Share of all late check-ins</h3>
+        <div class="chart-sub">Which departments make up this term's late records</div>
+        <div class="chart-body" id="deptDonut"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Day-of-week pattern</h2>
+      <span class="block-note">School week: Sun–Thu</span>
+    </div>
+    <div class="chart-card">
+      <h3>Late rate by weekday</h3>
+      <div class="chart-sub">Fairly even across the week — no single day stands out sharply once 5 Nov's device issue is excluded</div>
+      <div class="chart-body">
+        <div class="dow-grid" id="dowGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Gate usage</h2>
+      <span class="block-note">All 6,207 records</span>
+    </div>
+    <div class="chart-card">
+      <div class="chart-body" id="gateDonut"></div>
+      <div class="data-note">68 records have no scan at all (likely a manually logged confirmed-absence day) — not shown in the chart above.</div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Staff Daily Logs &middot; Riada American School &middot; internal use only</span>
+  </footer>
+</div>
+
+<script>
+const WEEKLY = [
+  ["Sep 13", 27.5],
+  ["Sep 20", 21.6],
+  ["Sep 27", 24.8],
+  ["Oct 4", 26.6],
+  ["Oct 11", 25.3],
+  ["Oct 18", 30.9],
+  ["Oct 25", 22.5],
+  ["Nov 1", 27.0],
+];
+
+const DEPTS = [
+  { label: "High School", rate: 50.1, lateCount: 454, color: "var(--dept-1)" },
+  { label: "High Elementary", rate: 36.4, lateCount: 301, color: "var(--dept-3)" },
+  { label: "Middle School", rate: 26.1, lateCount: 225, color: "var(--dept-2)" },
+  { label: "Lower Elementary", rate: 22.2, lateCount: 209, color: "var(--dept-4)" },
+  { label: "Pre-K", rate: 21.9, lateCount: 92, color: "var(--dept-5)" },
+  { label: "Administration", rate: 10.9, lateCount: 197, color: "var(--dept-6)" },
+];
+
+const DOW = [
+  ["Sun", 25.3],
+  ["Mon", 24.9],
+  ["Tue", 26.4],
+  ["Wed", 27.5],
+  ["Thu", 23.7],
+];
+
+const GATES = [
+  { label: "Gate 2", n: 5459, color: "var(--accent)" },
+  { label: "Gate 1 + Gate 2", n: 465, color: "var(--dept-3)" },
+  { label: "Gate 1", n: 215, color: "var(--dept-1)" },
+];
+
+// ---- Weekly trend (SVG line/area) ----
+(function () {
+  const el = document.getElementById("trendChart");
+  const w = 1080, h = 220, padL = 34, padR = 16, padT = 20, padB = 30;
+  const max = Math.max(...WEEKLY.map(d => d[1]));
+  const n = WEEKLY.length;
+  const x = i => padL + (i / (n - 1)) * (w - padL - padR);
+  const y = v => padT + (1 - v / max) * (h - padT - padB);
+
+  const points = WEEKLY.map((d, i) => [x(i), y(d[1])]);
+  const linePath = points.map((p, i) => (i === 0 ? "M" : "L") + p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+  const areaPath = linePath + ` L${points[n-1][0].toFixed(1)},${(h-padB).toFixed(1)} L${points[0][0].toFixed(1)},${(h-padB).toFixed(1)} Z`;
+
+  const gridLines = [0, 0.5, 1].map(t => {
+    const gy = padT + t * (h - padT - padB);
+    const val = (max * (1 - t)).toFixed(0);
+    return `<line class="trend-grid" x1="${padL}" y1="${gy}" x2="${w-padR}" y2="${gy}"/><text class="trend-axis-label" x="4" y="${gy+3}">${val}%</text>`;
+  }).join("");
+
+  const dots = points.map((p, i) => `<circle class="trend-point" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3.5"><title>Week of ${WEEKLY[i][0]}: ${WEEKLY[i][1]}% late</title></circle>`).join("");
+  const labels = WEEKLY.map((d, i) => `<text class="trend-axis-label" x="${x(i).toFixed(1)}" y="${h-8}" text-anchor="middle">${d[0]}</text>`).join("");
+  const valueLabels = WEEKLY.map((d, i) => `<text class="trend-value-label" x="${x(i).toFixed(1)}" y="${(y(d[1])-10).toFixed(1)}" text-anchor="middle">${d[1]}%</text>`).join("");
+
+  el.innerHTML = `<svg class="trend-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+    ${gridLines}
+    <path class="trend-area" d="${areaPath}"/>
+    <path class="trend-line" d="${linePath}"/>
+    ${dots}
+    ${valueLabels}
+    ${labels}
+  </svg>`;
+})();
+
+// ---- On-time pictogram ----
+(function () {
+  const el = document.getElementById("onTimeGauge");
+  const onTimePct = 74.4;
+  const latePct = 100 - onTimePct;
+  const flaggedDots = Math.round(latePct);
+  let dots = "";
+  for (let i = 0; i < 100; i++) {
+    dots += `<div class="pictogram-dot${i < flaggedDots ? " flagged" : ""}"></div>`;
+  }
+  el.innerHTML = `<div class="pictogram-grid">${dots}</div>
+    <div class="pictogram-caption"><b>${onTimePct}%</b> of check-ins are on time</div>`;
+})();
+
+// ---- Department bars (by rate) ----
+(function () {
+  const el = document.getElementById("deptChart");
+  const max = Math.max(...DEPTS.map(d => d.rate));
+  el.innerHTML = DEPTS.map(d => {
+    const pct = Math.max((d.rate / max) * 100, 6);
+    return `<div class="dept-row">
+      <div class="dept-label">${d.label}</div>
+      <div class="dept-track"><div class="dept-fill" style="width:${pct}%;background:${d.color}"><span>${d.rate}%</span></div></div>
+    </div>`;
+  }).join("");
+})();
+
+// ---- Department donut (share of late check-ins) ----
+(function () {
+  const el = document.getElementById("deptDonut");
+  const total = DEPTS.reduce((s, d) => s + d.lateCount, 0);
+  let acc = 0;
+  const parts = DEPTS.map(d => {
+    const start = (acc / total) * 360;
+    acc += d.lateCount;
+    const end = (acc / total) * 360;
+    return `${d.color} ${start}deg ${end}deg`;
+  });
+  const gradient = `conic-gradient(${parts.join(", ")})`;
+  const legend = DEPTS.map(d => `<div class="donut-legend-row">
+    <span class="donut-dot" style="background:${d.color}"></span>
+    <span>${d.label}</span>
+    <b>${((d.lateCount/total)*100).toFixed(0)}%</b>
+  </div>`).join("");
+  el.innerHTML = `<div class="donut-wrap">
+    <div class="donut-ring" style="background:${gradient}">
+      <div class="donut-center"><div class="n">${total}</div><div class="lbl">Late check-ins</div></div>
+    </div>
+    <div class="donut-legend">${legend}</div>
+  </div>`;
+})();
+
+// ---- Day of week ----
+(function () {
+  const el = document.getElementById("dowGrid");
+  const max = Math.max(...DOW.map(d => d[1]));
+  el.innerHTML = DOW.map(([label, n]) => {
+    const pct = Math.max((n / max) * 100, 6);
+    return `<div class="dow-col">
+      <div class="dow-n">${n}%</div>
+      <div class="dow-bar-wrap"><div class="dow-bar" style="height:${pct}%"></div></div>
+      <div class="dow-label">${label}</div>
+    </div>`;
+  }).join("");
+})();
+
+// ---- Gate usage donut ----
+(function () {
+  const el = document.getElementById("gateDonut");
+  const total = GATES.reduce((s, g) => s + g.n, 0);
+  let acc = 0;
+  const parts = GATES.map(g => {
+    const start = (acc / total) * 360;
+    acc += g.n;
+    const end = (acc / total) * 360;
+    return `${g.color} ${start}deg ${end}deg`;
+  });
+  const gradient = `conic-gradient(${parts.join(", ")})`;
+  const legend = GATES.map(g => `<div class="donut-legend-row">
+    <span class="donut-dot" style="background:${g.color}"></span>
+    <span>${g.label}</span>
+    <b>${g.n.toLocaleString()} (${((g.n/total)*100).toFixed(0)}%)</b>
+  </div>`).join("");
+  el.innerHTML = `<div class="donut-wrap">
+    <div class="donut-ring" style="background:${gradient}">
+      <div class="donut-center"><div class="n">${total.toLocaleString()}</div><div class="lbl">Scans</div></div>
+    </div>
+    <div class="donut-legend">${legend}</div>
+  </div>`;
+})();
+</script>
